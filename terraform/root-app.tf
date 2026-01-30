@@ -22,7 +22,7 @@ resource "kubernetes_manifest" "argo_apps" {
       namespace = "argocd"
     }
     spec = {
-      project = "default"
+      project = local.namespace
 
       source = {
         repoURL        = "https://github.com/microtema/argo-cd.git"
