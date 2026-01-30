@@ -1,24 +1,24 @@
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: mate-customer-dev-weu-001
-#  namespace: argocd
-#spec:
-#  project: mate-dev-weu-001
-#  destination:
-#    server: https://kubernetes.default.svc
-#    namespace: mate-customer-dev-weu-001
-#  source:
-#    repoURL: https://github.com/microtema/argo-cd.git
-#    targetRevision: main
-#    path: charts/java-microservice
-#    helm:
-#      releaseName: mate-customer-dev-weu-001
-#      valueFiles:
-#        - ../../environments/dev/customer-values.yaml
-#  syncPolicy:
-#    automated:
-#      prune: true
-#      selfHeal: true
-#    syncOptions:
-#      - CreateNamespace=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mate-customer-dev-weu-001
+  namespace: argocd
+spec:
+  project: mate-dev-weu-001
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mate-customer-dev-weu-001
+  source:
+    repoURL: https://github.com/microtema/argo-cd.git
+    targetRevision: main
+    path: charts/java-microservice
+    helm:
+      releaseName: mate-customer-dev-weu-001
+      valueFiles:
+        - ../../environments/dev/customer-values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

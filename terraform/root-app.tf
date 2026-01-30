@@ -12,6 +12,36 @@ resource "kubernetes_namespace" "root_apps" {
   }
 }
 
+resource "kubernetes_manifest" "argo_app_project" {
+
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "AppProject"
+    metadata = {
+      name      = local.namespace
+      namespace = "argocd"
+    }
+
+    spec = {
+      description = "Project for [${local.namespace}]"
+
+      sourceRepos = ["https://github.com/microtema/argo-cd.git"]
+
+      destinations = [{
+        namespace = "${var.project}-*"
+        server    = "https://kubernetes.default.svc"
+      }]
+
+      clusterResourceWhitelist = [{
+        group : "*"
+        kind : "*"
+      }]
+    }
+  }
+
+  depends_on = [helm_release.argocd, kubernetes_namespace.root_apps]
+}
+
 resource "kubernetes_manifest" "argo_apps" {
 
   manifest = {
@@ -40,7 +70,6 @@ resource "kubernetes_manifest" "argo_apps" {
           prune    = true
           selfHeal = true
         }
-        syncOptions = ["CreateNamespace=false"]
       }
     }
   }
