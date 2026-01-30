@@ -1,0 +1,14 @@
+project                      = "mate"
+environment                  = "dev"
+location                     = "westeurope"
+location_short               = "weu"
+cost_center                  = "cost-center"
+commit_id                    = "123456"
+counter                      = "001"
+owner                        = "mario.tema"
+owner_email                  = "mario.tema@adesso.de"
+department                   = "IT"
+branch_name                  = "develop"
+vnet_address_space           = ["10.0.0.0/16"]
+subnet_main_address_prefixes = ["10.0.4.0/22"]
+subscription_id              = "06903b58-70fa-4463-8055-004306879b16"

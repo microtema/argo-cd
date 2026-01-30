@@ -1,0 +1,8 @@
+.idea
+.login
+.import.sh
+
+terraform/.aks
+terraform/.ssh
+terraform/.terraform
+terraform/.terraform.lock.hcl
