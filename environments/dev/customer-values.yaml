@@ -1,19 +1,23 @@
 image:
   repository: microtema/process-reporting-service
-  tag: "7.1.3"
+  tag: "7.0.0"
 
 app:
   name: customer-service
   port: 8080
-  contextPath: "/customer"
-  javaOpts: "-Dspring.profiles.active=dev"
+  contextPath: "/reporting-service"
+  javaOpts: "-Dspring.profiles.active=prod"
 
 env:
-  SX_PRING_DATASOURCE_URL: "jdbc:postgresql://postgres.dev.svc:5432/customer"
-  SX_SPRING_DATASOURCE_USERNAME: "customer_app"
+  SPRING_DATASOURCE_USERNAME: "sa"
+  SPRING_DATASOURCE_PASSWORD: ""
+  SPRING_DATASOURCE_URL: "jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE"
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: "org.h2.Driver"
+  SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.H2Dialect"
+  SPRING_JPA_DATABASE: "H2"
 
 hpa:
-  enabled: true
+  enabled: false
   minReplicas: 2
   maxReplicas: 6
   cpuUtilization: 70
