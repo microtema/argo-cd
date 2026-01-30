@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "java-microservice.fullname" . }}
+  labels:
+    {{- include "java-microservice.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ include "java-microservice.name" . }}
+  template:
+    metadata:
+      labels:
+        {{- include "java-microservice.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}{{ toYaml . | nindent 8 }}{{- end }}
+      annotations:
+        {{- with .Values.podAnnotations }}{{ toYaml . | nindent 8 }}{{- end }}
+    spec:
+      containers:
+        - name: app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.app.port }}
+          env:
+            - name: SERVER_PORT
+              value: "{{ .Values.app.port }}"
+            - name: SERVER_SERVLET_CONTEXT_PATH
+              value: "{{ .Values.app.contextPath }}"
+            - name: JAVA_TOOL_OPTIONS
+              value: "{{ .Values.app.javaOpts }}"
+          envFrom:
+            - configMapRef:
+                name: {{ include "java-microservice.fullname" . }}-cm
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.app.readinessPath }}
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.app.livenessPath }}
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}

@@ -1,0 +1,58 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: ""
+  tag: ""
+  pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+app:
+  port: 8080
+  contextPath: "/"
+  javaOpts: "-XX:MaxRAMPercentage=75.0"
+  # Spring Boot Actuator endpoints (recommended)
+  readinessPath: "/actuator/health/readiness"
+  livenessPath: "/actuator/health/liveness"
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 1024Mi
+
+env: {}   # key/value env vars go into ConfigMap
+# secrets: {} # (intentionally not in chart by default - prefer ESO/CSI/Vault patterns)
+
+ingress:
+  enabled: false
+  className: ""
+  host: ""
+  path: "/"
+  tls:
+    enabled: true
+    secretName: ""
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  cpuUtilization: 70
+
+podAnnotations: {}
+podLabels: {}
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+
+containerSecurityContext: {}
