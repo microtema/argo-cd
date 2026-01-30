@@ -1,6 +1,6 @@
 image:
-  repository: ninrod/springboot
-  tag: "test"
+  repository: springio/gs-actuator-service
+  tag: "latest"
 
 app:
   name: customer-service
