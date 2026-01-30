@@ -1,24 +1,24 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: customer-dev
-  namespace: argocd
-spec:
-  project: default
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: customer-dev
-  source:
-    repoURL: https://github.com/microtema/argo-cd.git
-    targetRevision: main
-    path: charts/java-microservice
-    helm:
-      releaseName: customer
-      valueFiles:
-        - ../../environments/dev/customer-values.yaml
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: customer-dev
+#  namespace: argocd
+#spec:
+#  project: default
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: customer-dev
+#  source:
+#    repoURL: https://github.com/microtema/argo-cd.git
+#    targetRevision: main
+#    path: charts/java-microservice
+#    helm:
+#      releaseName: customer
+#      valueFiles:
+#        - ../../environments/dev/customer-values.yaml
+#  syncPolicy:
+#    automated:
+#      prune: true
+#      selfHeal: true
+#    syncOptions:
+#      - CreateNamespace=true
