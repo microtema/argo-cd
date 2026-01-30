@@ -1,6 +1,6 @@
 image:
-  repository: springio/gs-actuator-service
-  tag: "latest"
+  repository: microtema/process-reporting-service
+  tag: "7.1.3"
 
 app:
   name: customer-service
