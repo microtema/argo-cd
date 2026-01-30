@@ -19,7 +19,7 @@ resource "kubernetes_manifest" "argo_apps" {
     kind       = "Application"
     metadata = {
       name      = local.namespace
-      namespace = local.namespace
+      namespace = "argocd"
     }
     spec = {
       project = local.namespace
