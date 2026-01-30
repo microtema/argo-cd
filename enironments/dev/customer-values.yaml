@@ -9,8 +9,8 @@ app:
   javaOpts: "-Dspring.profiles.active=dev"
 
 env:
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres.dev.svc:5432/customer"
-  SPRING_DATASOURCE_USERNAME: "customer_app"
+  SX_PRING_DATASOURCE_URL: "jdbc:postgresql://postgres.dev.svc:5432/customer"
+  SX_SPRING_DATASOURCE_USERNAME: "customer_app"
 
 hpa:
   enabled: true
