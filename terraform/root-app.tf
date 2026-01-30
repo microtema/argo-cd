@@ -13,37 +13,42 @@ resource "kubernetes_namespace" "root_apps" {
 }
 
 resource "kubernetes_manifest" "argo_app_project" {
-
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "AppProject"
     metadata = {
-      name      = local.namespace
+      name      = local.namespace         # e.g. "mate-dev-weu-001"
       namespace = "argocd"
     }
-
     spec = {
-      description = "Project for [${local.namespace}]"
+      description = "Project for ${local.namespace}"
 
-      sourceRepos = ["https://github.com/microtema/argo-cd.git"]
+      sourceRepos = [
+        "https://github.com/microtema/argo-cd.git"
+      ]
 
-      destinations = [{
-        namespace = "${var.project}-*"
-        server    = "https://kubernetes.default.svc"
-      }]
+      destinations = [
+        {
+          # MUST match your real target namespaces:
+          # mate-customer-dev-weu-001, mate-order-dev-weu-001, ...
+          namespace = "mate-*"
+          server    = "https://kubernetes.default.svc"
+        }
+      ]
 
-      clusterResourceWhitelist = [{
-        group : "*"
-        kind : "*"
-      }]
+      clusterResourceWhitelist = [
+        {
+          group = "*"
+          kind  = "*"
+        }
+      ]
     }
   }
 
-  depends_on = [helm_release.argocd, kubernetes_namespace.root_apps]
+  depends_on = [helm_release.argocd]
 }
 
-resource "kubernetes_manifest" "argo_apps" {
-
+resource "kubernetes_manifest" "argo_root_app" {
   manifest = {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
@@ -52,7 +57,7 @@ resource "kubernetes_manifest" "argo_apps" {
       namespace = "argocd"
     }
     spec = {
-      project = local.namespace
+      project = "default"
 
       source = {
         repoURL        = "https://github.com/microtema/argo-cd.git"
@@ -62,7 +67,7 @@ resource "kubernetes_manifest" "argo_apps" {
 
       destination = {
         server    = "https://kubernetes.default.svc"
-        namespace = local.namespace
+        namespace = "argocd"
       }
 
       syncPolicy = {
@@ -74,5 +79,8 @@ resource "kubernetes_manifest" "argo_apps" {
     }
   }
 
-  depends_on = [helm_release.argocd, kubernetes_namespace.root_apps]
+  depends_on = [
+    helm_release.argocd,
+    kubernetes_manifest.argo_app_project
+  ]
 }
