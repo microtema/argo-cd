@@ -7,6 +7,8 @@ app:
   port: 8080
   contextPath: "/reporting-service"
   javaOpts: "-Dspring.profiles.active=prod"
+  readinessPath: "/rest/api/time-range"
+  livenessPath: "/rest/api/time-range"
 
 env:
   SPRING_DATASOURCE_USERNAME: "sa"
