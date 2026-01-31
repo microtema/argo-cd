@@ -3,7 +3,7 @@ image:
   tag: "7.0.0"
 
 app:
-  name: reporting-servioe-service
+  name: reporting-service
   port: 8080
   contextPath: "/reporting-service"
   javaOpts: "-Dspring.profiles.active=prod"
