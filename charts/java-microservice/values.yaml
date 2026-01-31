@@ -22,11 +22,11 @@ service:
 
 resources:
   requests:
-    cpu: 200m
-    memory: 512Mi
+    cpu: 100m
+    memory: 256Mi
   limits:
-    cpu: "1"
-    memory: 1024Mi
+    cpu: 500m
+    memory: 512Mi
 
 env: {}   # key/value env vars go into ConfigMap
 # secrets: {} # (intentionally not in chart by default - prefer ESO/CSI/Vault patterns)
