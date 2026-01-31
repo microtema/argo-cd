@@ -26,3 +26,6 @@ hpa:
 
 ingress:
   enabled: false
+
+securityContext:
+  readOnlyRootFilesystem: false
