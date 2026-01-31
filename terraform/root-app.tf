@@ -17,7 +17,7 @@ resource "kubernetes_manifest" "argo_app_project" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "AppProject"
     metadata = {
-      name      = local.namespace         # e.g. "mate-dev-weu-001"
+      name      = local.namespace # e.g. "mate-dev-weu-001"
       namespace = "argocd"
     }
     spec = {
@@ -27,21 +27,15 @@ resource "kubernetes_manifest" "argo_app_project" {
         "https://github.com/microtema/argo-cd.git"
       ]
 
-      destinations = [
-        {
-          # MUST match your real target namespaces:
-          # mate-customer-dev-weu-001, mate-order-dev-weu-001, ...
+      destinations = [{
           namespace = "mate-*"
           server    = "https://kubernetes.default.svc"
-        }
-      ]
+        } ]
 
-      clusterResourceWhitelist = [
-        {
-          group = "*"
-          kind  = "*"
-        }
-      ]
+      clusterResourceWhitelist = [{
+        group = "*"
+        kind  = "*"
+      }]
     }
   }
 
