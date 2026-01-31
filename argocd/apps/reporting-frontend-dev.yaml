@@ -7,7 +7,7 @@ spec:
   project: mate-dev-weu-001
   destination:
     server: https://kubernetes.default.svc
-    namespace: mate-reporting-servioe-dev-weu-001
+    namespace: mate-reporting-frontend-dev-weu-001
   source:
     repoURL: https://github.com/microtema/argo-cd.git
     targetRevision: main
