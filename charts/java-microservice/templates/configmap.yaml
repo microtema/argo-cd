@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "java-microservice.fullname" . }}-cm
+  name: {{ .Values.name }}-cm
   labels:
-    {{- include "java-microservice.labels" . | nindent 4 }}
+    app: {{ .Values.name }}
 data:
   {{- range $k, $v := .Values.env }}
   {{ $k }}: {{ $v | quote }}

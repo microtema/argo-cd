@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "java-microservice.fullname" . }}
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
   labels:
-    {{- include "java-microservice.labels" . | nindent 4 }}
+    app: {{ .Values.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/name: {{ include "java-microservice.name" . }}
+      app.kubernetes.io/instance: {{ .Values.name }}
+      app.kubernetes.io/name: {{ .Values.name }}
   template:
     metadata:
       labels:
-        {{- include "java-microservice.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}{{ toYaml . | nindent 8 }}{{- end }}
+        app: {{ .Values.name }}
       annotations:
         {{- with .Values.podAnnotations }}{{ toYaml . | nindent 8 }}{{- end }}
     spec:
       containers:
-        - name: app
+        - name: {{ .Values.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -34,7 +34,7 @@ spec:
               value: "{{ .Values.app.javaOpts }}"
           envFrom:
             - configMapRef:
-                name: {{ include "java-microservice.fullname" . }}-cm
+                name: {{ .Values.name }}-cm
           readinessProbe:
             httpGet:
               path: {{ .Values.app.readinessPath }}
