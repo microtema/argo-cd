@@ -1,5 +1,5 @@
 image:
-  repository: microtema/process-reporting-service
+  repository: microtema/process-reporting-frontend
   tag: "7.0.0"
 
 replicaCount: 1
