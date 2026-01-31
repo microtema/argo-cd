@@ -1,9 +1,11 @@
+name: "reporting-service"
+namespace: "mate-reporting-service-dev-weu-001"
+
 image:
   repository: microtema/process-reporting-service
   tag: "7.0.0"
 
 app:
-  name: reporting-service
   port: 8080
   contextPath: "/reporting-service"
   javaOpts: "-Dspring.profiles.active=prod"

@@ -1,3 +1,6 @@
+name: "reporting-frontend"
+namespace: "mate-reporting-frontend-dev-weu-001"
+
 image:
   repository: microtema/process-reporting-frontend
   tag: "7.0.0"
@@ -5,7 +8,6 @@ image:
 replicaCount: 1
 
 app:
-  name: reporting-frontend-service
   port: 8080
   contextPath: "/"
   javaOpts: "-Dspring.profiles.active=prod"
