@@ -2,6 +2,8 @@ image:
   repository: microtema/process-reporting-service
   tag: "7.0.0"
 
+replicaCount: 1
+
 app:
   name: reporting-frontend-service
   port: 8080
